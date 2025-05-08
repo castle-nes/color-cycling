@@ -1,21 +1,22 @@
-Okay, here's a README.md for your `color_cycling.py` script.
-
-```markdown
-# Color Cycling GIF Generator
+# Color Cycling GIF Converter
 
 This Python script creates animated GIFs by cycling specified colors within a PNG image. You provide a base PNG image and one or more lists of hex colors. The script will then find pixels in the image matching any of the colors you specified and animate them by cycling through their respective color lists, frame by frame.
+
+If you don't know what is palette cycling, here are some example by Mark Ferrari, that use javascript to do it:
+http://www.effectgames.com/demos/canvascycle/
+
+The point of this script is to use Greater Common Divisors to achieve seamless cycles of animation with gif. For exemple, if you have 3 different blues and 4 different reds to animate, the complete anymation will be 12 frames long, so the blue colors cycle 4 times and the reds 3 times.
 
 ## Features
 
 *   Takes a PNG image as input.
 *   Allows defining multiple independent color cycling groups.
 *   Interactive prompts for entering color lists.
-*   Supports hex color codes in `#RRGGBB` or `RRGGBB` format.
+*   Supports hex color codes in `#RRGGBB` or `RRGGBB` format (TODO, check if it works without #)
 *   Customizable frame duration for the GIF.
 *   Customizable loop count for the GIF (including infinite loop).
 *   Outputs an animated GIF.
 *   Handles images with different PNG modes by converting them to RGB.
-*   Includes progress bar for frame generation.
 
 ## Installation
 
@@ -24,14 +25,9 @@ This Python script creates animated GIFs by cycling specified colors within a PN
     *   `pip` (Python package installer)
 
 2.  **Clone or Download:**
-    Get the `color_cycling.py` script. If it's part of a repository, you can clone it:
-    ```bash
-    git clone <repository_url>
-    cd <repository_directory>
-    ```
-    Otherwise, just download `color_cycling.py` into a directory.
+    Get the `color_cycling.py` script.
 
-3.  **Set up a Virtual Environment (Recommended):**
+3.  **Set up a Virtual Environment (Recommended but optional):**
     It's good practice to use a virtual environment to manage project dependencies.
     ```bash
     python -m venv .venv
@@ -123,53 +119,8 @@ Let's say you have an image `logo.png` and you want to cycle a specific red colo
     *   If a pixel is `#00FF00`, it will cycle: `#00FF00` -> `#0000FF` -> `#FF0000` -> `#00FF00`... (and so on for `#0000FF`)
     *   The resulting `logo_animated.gif` will have 3 frames (LCM of 3 is 3), each lasting 150ms, and loop infinitely.
 
-### Example 2: Multiple Independent Color Cycles
-
-Suppose `artwork.png` has some elements in shades of purple you want to cycle, and other elements in shades of orange.
-
-1.  **Command:**
-    ```bash
-    python color_cycling.py artwork.png -d 100 -l 5
-    ```
-
-2.  **Interactive Input:**
-    ```
-    Processing image: artwork.png
-    Enter comma-separated hex colors for cycle group 1 (e.g., #FF0000,#00FF00,#0000FF).
-    Press Enter with no input to finish: #550055, #880088, #AA00AA, #880088
-    Enter comma-separated hex colors for cycle group 2 (e.g., #FF0000,#00FF00,#0000FF).
-    Press Enter with no input to finish: FF8C00, FFA500, FFD700
-    Enter comma-separated hex colors for cycle group 3 (e.g., #FF0000,#00FF00,#0000FF).
-    Press Enter with no input to finish: <PRESS ENTER>
-    ```
-
-    This will:
-    *   **Group 1 (Purples):** Pixels matching `#550055`, `#880088`, or `#AA00AA` will cycle through the 4-color purple list (e.g., `#550055` -> `#880088` -> `#AA00AA` -> `#880088` -> `#550055`...).
-    *   **Group 2 (Oranges):** Pixels matching `FF8C00` (dark orange), `FFA500` (orange), or `FFD700` (gold) will cycle through the 3-color orange list.
-    *   The generated `artwork_animated.gif` will have LCM(4, 3) = 12 frames.
-    *   Each frame will last 100ms, and the GIF will loop 5 times.
-
-### Example 3: Short cycle for a specific effect
-
-Imagine you have `icon.png` with a border color `#CCCCCC` and you want it to briefly flash to `#FFFFFF` and back.
-
-1.  **Command:**
-    ```bash
-    python color_cycling.py icon.png -d 50
-    ```
-
-2.  **Interactive Input:**
-    ```
-    Processing image: icon.png
-    Enter comma-separated hex colors for cycle group 1 (e.g., #FF0000,#00FF00,#0000FF).
-    Press Enter with no input to finish: #CCCCCC, #FFFFFF
-    Enter comma-separated hex colors for cycle group 2 (e.g., #FF0000,#00FF00,#0000FF).
-    Press Enter with no input to finish: <PRESS ENTER>
-    ```
-    This will make any `#CCCCCC` pixels in `icon.png` alternate between `#CCCCCC` and `#FFFFFF`. Any existing `#FFFFFF` pixels (that were part of this specified cycle list) would alternate to `#CCCCCC` and back. The GIF will have 2 frames, each 50ms.
 
 ## Notes
 
 *   The script converts the input image to 'RGB' mode. This means transparency information (alpha channel) from the original PNG might be lost or flattened against a black background if not handled by Pillow's default conversion.
 *   For very large images or a very high number of frames (due to long color lists or many lists with lengths that are prime to each other), the script might consume a significant amount of memory.
-```
