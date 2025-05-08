@@ -7,6 +7,9 @@ http://www.effectgames.com/demos/canvascycle/
 
 The point of this script is to use Greater Common Divisors to achieve seamless cycles of animation with gif. For exemple, if you have 3 different blues and 4 different reds to animate, the complete anymation will be 12 frames long, so the blue colors cycle 4 times and the reds 3 times.
 
+![Base image](./test3.png) ![Result image](test3_animated.gif)
+
+
 ## Features
 
 *   Takes a PNG image as input.
