@@ -1,6 +1,3 @@
-Okay, here's a README.md for your `color_cycling.py` script.
-
-```markdown
 # Color Cycling GIF Generator
 
 This Python script creates animated GIFs by cycling specified colors within a PNG image. You provide a base PNG image and one or more lists of hex colors. The script will then find pixels in the image matching any of the colors you specified and animate them by cycling through their respective color lists, frame by frame.
@@ -172,4 +169,3 @@ Imagine you have `icon.png` with a border color `#CCCCCC` and you want it to bri
 
 *   The script converts the input image to 'RGB' mode. This means transparency information (alpha channel) from the original PNG might be lost or flattened against a black background if not handled by Pillow's default conversion.
 *   For very large images or a very high number of frames (due to long color lists or many lists with lengths that are prime to each other), the script might consume a significant amount of memory.
-```
